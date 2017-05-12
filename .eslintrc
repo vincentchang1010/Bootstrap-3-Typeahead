@@ -1,0 +1,15 @@
+{
+  "extends": [
+  ],
+  "plugins": [
+  ],
+  "rules": {
+    "linebreak-style": 0
+  },
+  "globals": {
+  },
+  "env": {
+    "browser": true
+  },
+  "parser": "babel-eslint"
+}
