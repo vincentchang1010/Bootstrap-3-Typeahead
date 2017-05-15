@@ -514,6 +514,9 @@
         this.$element.focus();
         this.mouseddown = false;
       }
+      if (this.options.showHintOnFocus === 'all') {
+        this.focused = false;
+      }
     },
 
     click: function (e) {
