@@ -80,7 +80,7 @@
 
       this.$element.data('active', val);
       if (this.autoSelect || val) {
-        let newVal = this.updater(val);
+        var newVal = this.updater(val);
         // Updater can be set to
         // any random functions via "options" parameter in constructor above.
         // Add null check for cases when updater returns void or undefined.
