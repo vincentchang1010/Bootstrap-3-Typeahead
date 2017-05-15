@@ -31,7 +31,7 @@
   // AMD module is defined
   else if (typeof define === 'function' && define.amd) {
     define(['jquery'], function ($) {
-      return factory ($);
+      return factory($);
     });
   } else {
     factory(root.jQuery);
@@ -43,8 +43,8 @@
   // jshint laxcomma: true
 
 
- /* TYPEAHEAD PUBLIC CLASS DEFINITION
-  * ================================= */
+  /* TYPEAHEAD PUBLIC CLASS DEFINITION
+   * ================================= */
 
   var Typeahead = function (element, options) {
     this.$element = $(element);
@@ -108,8 +108,8 @@
       });
 
       var scrollHeight = typeof this.options.scrollHeight == 'function' ?
-          this.options.scrollHeight.call() :
-          this.options.scrollHeight;
+        this.options.scrollHeight.call() :
+        this.options.scrollHeight;
 
       var element;
       if (this.shown) {
@@ -120,14 +120,14 @@
       } else {
         element = this.$menu.insertAfter(this.$element);
         this.hasSameParent = true;
-      }      
-      
+      }
+
       if (!this.hasSameParent) {
-          // We cannot rely on the element position, need to position relative to the window
-          element.css("position", "fixed");
-          var offset = this.$element.offset();
-          pos.top =  offset.top;
-          pos.left = offset.left;
+        // We cannot rely on the element position, need to position relative to the window
+        element.css("position", "fixed");
+        var offset = this.$element.offset();
+        pos.top = offset.top;
+        pos.left = offset.left;
       }
       // The rules for bootstrap are: 'dropup' in the parent and 'dropdown-menu-right' in the element.
       // Note that to get right alignment, you'll need to specify `menu` in the options to be:
@@ -141,9 +141,9 @@
       element.css({ top: newTop, left: newLeft }).show();
 
       if (this.options.fitToElement === true) {
-          element.css("width", this.$element.outerWidth() + "px");
+        element.css("width", this.$element.outerWidth() + "px");
       }
-    
+
       this.shown = true;
       return this;
     },
@@ -208,7 +208,7 @@
       }
 
       // Add item
-      if (this.options.addItem){
+      if (this.options.addItem) {
         items.push(this.options.addItem);
       }
 
@@ -238,38 +238,38 @@
 
     highlighter: function (item) {
       var text = this.query;
-      if(text===""){
+      if (text === "") {
         return item;
       }
       var matches = item.match(/(>)([^<]*)(<)/g);
       var first = [];
       var second = [];
       var i;
-      if(matches && matches.length){
+      if (matches && matches.length) {
         //html
         for (i = 0; i < matches.length; ++i) {
           if (matches[i].length > 2) {//escape '><'
             first.push(matches[i]);
           }
         }
-      }else{
+      } else {
         //text
         first = [];
         first.push(item);
       }
-      text = text.replace((/[\(\)\/\.\*\+\?\[\]]/g), function(mat) {
-          return '\\' + mat;
+      text = text.replace((/[\(\)\/\.\*\+\?\[\]]/g), function (mat) {
+        return '\\' + mat;
       });
       var reg = new RegExp(text, "g");
       var m;
       for (i = 0; i < first.length; ++i) {
         m = first[i].match(reg);
-        if(m && m.length>0){//find all text nodes matches
+        if (m && m.length > 0) {//find all text nodes matches
           second.push(first[i]);
         }
       }
       for (i = 0; i < second.length; ++i) {
-        item = item.replace(second[i],second[i].replace(reg, '<strong>$&</strong>'));
+        item = item.replace(second[i], second[i].replace(reg, '<strong>$&</strong>'));
       }
       return item;
     },
@@ -281,16 +281,16 @@
       var data = [];
       var _category = that.options.separator;
 
-      $.each(items, function (key,value) {
+      $.each(items, function (key, value) {
         // inject separator
-        if (key > 0 && value[_category] !== items[key - 1][_category]){
+        if (key > 0 && value[_category] !== items[key - 1][_category]) {
           data.push({
             __type: 'divider'
           });
         }
 
         // inject category header
-        if (value[_category] && (key === 0 || value[_category] !== items[key - 1][_category])){
+        if (value[_category] && (key === 0 || value[_category] !== items[key - 1][_category])) {
           data.push({
             __type: 'category',
             name: value[_category]
@@ -300,11 +300,11 @@
       });
 
       items = $(data).map(function (i, item) {
-        if ((item.__type || false) == 'category'){
+        if ((item.__type || false) == 'category') {
           return $(that.options.headerHtml).text(item.name)[0];
         }
 
-        if ((item.__type || false) == 'divider'){
+        if ((item.__type || false) == 'divider') {
           return $(that.options.headerDivider)[0];
         }
 
@@ -359,11 +359,11 @@
 
     listen: function () {
       this.$element
-        .on('focus',    $.proxy(this.focus, this))
-        .on('blur',     $.proxy(this.blur, this))
+        .on('focus', $.proxy(this.focus, this))
+        .on('blur', $.proxy(this.blur, this))
         .on('keypress', $.proxy(this.keypress, this))
-        .on('propertychange input',    $.proxy(this.input, this))
-        .on('keyup',    $.proxy(this.keyup, this));
+        .on('propertychange input', $.proxy(this.input, this))
+        .on('keyup', $.proxy(this.keyup, this));
 
       if (this.eventSupported('keydown')) {
         this.$element.on('keydown', $.proxy(this.keydown, this));
@@ -373,12 +373,12 @@
         .on('click', $.proxy(this.click, this))
         .on('mouseenter', 'li', $.proxy(this.mouseenter, this))
         .on('mouseleave', 'li', $.proxy(this.mouseleave, this))
-        .on('mousedown', $.proxy(this.mousedown,this));
+        .on('mousedown', $.proxy(this.mousedown, this));
     },
 
-    destroy : function () {
-      this.$element.data('typeahead',null);
-      this.$element.data('active',null);
+    destroy: function () {
+      this.$element.data('typeahead', null);
+      this.$element.data('active', null);
       this.$element
         .off('focus')
         .off('blur')
@@ -431,7 +431,7 @@
 
     keydown: function (e) {
       this.keyPressed = true;
-      this.suppressKeyPressRepeat = ~$.inArray(e.keyCode, [40,38,9,13,27]);
+      this.suppressKeyPressRepeat = ~$.inArray(e.keyCode, [40, 38, 9, 13, 27]);
       if (!this.shown && e.keyCode == 40) {
         this.lookup();
       } else {
@@ -488,8 +488,8 @@
         this.focused = true;
         this.keyPressed = false;
         if (this.options.showHintOnFocus && this.skipShowHintOnFocus !== true) {
-          if(this.options.showHintOnFocus === "all") {
-            this.lookup(""); 
+          if (this.options.showHintOnFocus === "all") {
+            this.lookup("");
           } else {
             this.lookup();
           }
@@ -511,7 +511,7 @@
         this.skipShowHintOnFocus = true;
         this.$element.focus();
         this.mouseddown = false;
-      } 
+      }
     },
 
     click: function (e) {
@@ -533,12 +533,12 @@
       if (!this.focused && this.shown) this.hide();
     },
 
-   /**
+    /**
      * We track the mousedown for IE. When clicking on the menu scrollbar, IE makes the input blur thus hiding the menu.
      */
     mousedown: function (e) {
       this.mouseddown = true;
-      this.$menu.one("mouseup", function(e){
+      this.$menu.one("mouseup", function (e) {
         // IE won't fire this, but FF and Chrome will so we reset our flag for them here
         this.mouseddown = false;
       }.bind(this));
@@ -590,8 +590,8 @@
 
   $.fn.typeahead.Constructor = Typeahead;
 
- /* TYPEAHEAD NO CONFLICT
-  * =================== */
+  /* TYPEAHEAD NO CONFLICT
+   * =================== */
 
   $.fn.typeahead.noConflict = function () {
     $.fn.typeahead = old;
@@ -599,8 +599,8 @@
   };
 
 
- /* TYPEAHEAD DATA-API
-  * ================== */
+  /* TYPEAHEAD DATA-API
+   * ================== */
 
   $(document).on('focus.typeahead.data-api', '[data-provide="typeahead"]', function (e) {
     var $this = $(this);
